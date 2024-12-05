@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Interactiva</title>
+    <style>
+        body {
+            background-color: black; /* Fondo negro por defecto */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        #helloButton {
+            background-color: white;
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1;
+        }
+        #helloButton:hover {
+            background-color: #ecf0f1;
+        }
+        #playButton {
+            display: none; /* Inicialmente oculto */
+            background-color: white;
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer; /* Habilitado */
+            border-radius: 5px;
+        }
+        #playButton:hover {
+            background-color: #ecf0f1;
+        }
+        #logo {
+            display: none; /* El logo está oculto al principio */
+            width: 200px; /* Ajusta el tamaño del logo */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Botón de "Hello" -->
+<button id="helloButton" onclick="playFirstAudio()">hello</button>
+
+<!-- Botón de "Play", inicialmente oculto -->
+<button id="playButton" onclick="playSecondAudio()">play</button>
+
+<!-- Logo que aparecerá después del audio -->
+<img id="logo" src="Logomape.png" alt="Logo de Mape">
+
+<script>
+    var playButtonClicked = false; // Variable para controlar si el botón "Play" ya ha sido presionado
+
+    function playFirstAudio() {
+        // Ocultar el botón "hello"
+        document.getElementById('helloButton').style.display = 'none';
+        
+        // Crear el objeto de audio para el primer archivo
+        var audio = new Audio('ElevenLabs_2024-12-05T05_05_24_Laura_pre_s0_sb0_se100_b_m2.mp3');
+        
+        // Reproducir el audio
+        audio.play();
+        
+        // Al finalizar el audio, mostrar el botón "play"
+        audio.onended = function() {
+            document.getElementById('playButton').style.display = 'block';
+        };
+    }
+
+    function playSecondAudio() {
+        // Evitar que el audio se reproduzca varias veces
+        if (playButtonClicked) return; // Si ya se presionó, no hacer nada
+
+        playButtonClicked = true; // Marcar que el botón fue presionado
+        
+        // Crear el objeto de audio para el segundo archivo
+        var audio = new Audio('Christmas - Mape.mp3');
+        
+        // Reproducir el segundo audio
+        audio.play();
+        
+        // Al finalizar el segundo audio, cambiar fondo y mostrar el logo
+        audio.onended = function() {
+            document.body.style.backgroundColor = 'white'; // Cambiar fondo a blanco
+            document.getElementById('playButton').style.display = 'none'; // Ocultar el botón "Play"
+            document.getElementById('logo').style.display = 'block'; // Mostrar el logo
+        };
+    }
+</script>
+
+</body>
+</html>
